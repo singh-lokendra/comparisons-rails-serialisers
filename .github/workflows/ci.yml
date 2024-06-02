@@ -1,5 +1,13 @@
 name: CI
 
+on:
+  push:
+    branches:
+      - '*'  # Runs on commits to any branch
+  pull_request:
+    branches:
+      - '*'  # Runs on pull requests targeting any branch
+
 jobs:
   benchmarks:
     runs-on: ubuntu-18.04
