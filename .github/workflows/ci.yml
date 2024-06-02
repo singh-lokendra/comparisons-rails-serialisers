@@ -1,26 +1,24 @@
 name: CI
 
-on: [push, pull_request]
-
 jobs:
   benchmarks:
     runs-on: ubuntu-18.04
     strategy:
       matrix:
-        ruby: [2.7]
+        ruby: [ 3.1, 3.2, 3.3 ]
 
     steps:
-    - uses: actions/checkout@master
+      - uses: actions/checkout@master
 
-    - name: Sets up the Ruby version
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby }}
+      - name: Sets up the Ruby version
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
 
-    - name: Sets up the environment
-      run: |
-        gem install -q bundler
-        bundle install
+      - name: Sets up the environment
+        run: |
+          gem install -q bundler
+          bundle install
 
-    - name: Runs the benchmarks
-      run: benchmark-driver ./all.yml --bundler
+      - name: Runs the benchmarks
+        run: benchmark-driver ./all.yml --bundler
